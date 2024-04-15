@@ -76,7 +76,7 @@ model Item {
   id           Int              @id @default(autoincrement())
   name         String
   description  String?
-  price        Float
+  price        Int
   category     ItemCategory // Loại món ăn
   status       ItemStatus // Đang order món hay đã order thành công
   availability ItemAvailability // Còn hàng hay hết hàng
