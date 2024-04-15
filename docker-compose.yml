@@ -12,7 +12,7 @@ services:
 
   # database
   db:
-    image: mysql:5.7
+    image: mysql:8.3
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: order_app

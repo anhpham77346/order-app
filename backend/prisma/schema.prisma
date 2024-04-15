@@ -12,3 +12,99 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id          Int       @id @default(autoincrement())
+  fullName    String
+  email       String    @unique
+  role        UserRoll
+  phoneNumber String?
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime? // Thời gian xóa có thể là null nếu bản ghi chưa bị xóa
+}
+
+model Table {
+  id              Int       @id @default(autoincrement())
+  name            String
+  seatingCapacity Int
+  qrCode          String?
+  stringCode      String?
+  createdAt       DateTime  @default(now())
+  deletedAt       DateTime?
+
+  // Khóa ngoại tham chiếu đến bảng Order
+  order   Order? @relation("TableToOrder", fields: [orderId], references: [id])
+  orderId Int?   @unique
+
+  // 1-n vs Order
+  orders Order[] @relation("TableToOrders")
+}
+
+model Order {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  // 1-1 Table
+  tableToOrder Table? @relation("TableToOrder")
+
+  // Khóa ngoại tham chiếu đến bảng Table
+  tableToOrdersId Int?
+  tableToOrders   Table? @relation("TableToOrders", fields: [tableToOrdersId], references: [id])
+
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id        Int       @id @default(autoincrement())
+  quantity  Int
+  unitPrice Int
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  // Khóa ngoại tham chiếu đến bảng Item
+  itemId Int
+  item   Item @relation(fields: [itemId], references: [id])
+
+  // Khóa ngoại tham chiếu đến bảng Order
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
+}
+
+model Item {
+  id           Int              @id @default(autoincrement())
+  name         String
+  description  String?
+  price        Float
+  category     ItemCategory // Loại món ăn
+  status       ItemStatus // Đang order món hay đã order thành công
+  availability ItemAvailability // Còn hàng hay hết hàng
+  createdAt    DateTime         @default(now())
+  deletedAt    DateTime?
+
+  orderItems OrderItem[]
+}
+
+enum UserRoll {
+  USER
+  ADMIN
+  SUPERADMIN
+}
+
+enum ItemStatus {
+  ORDERED
+  SERVED
+}
+
+enum ItemAvailability {
+  IN_STOCK
+  OUT_OF_STOCK
+}
+
+enum ItemCategory {
+  DESSERT
+  MAIN_COURSE
+  APPETIZER
+  BEVERAGE
+  SNACK
+}
