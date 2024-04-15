@@ -2,9 +2,11 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from 'dotenv';
 import routes from "./routes";
+import { PrismaClient } from "@prisma/client";
 
 // Create an Express app instance
 const app: Express = express();
+export const prisma = new PrismaClient();
 
 // Load environment variables from .env file
 dotenv.config();
