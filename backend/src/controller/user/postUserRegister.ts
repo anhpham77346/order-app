@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../../app';
-import bcrypt from 'bcryptjs'; 
+import bcrypt from 'bcrypt'; 
 
 type UserReq = {
     fullName: string;
@@ -34,7 +34,7 @@ async function postUserRegister(req: Request, res: Response) {
 
         res.status(200).json(newUser);
     } catch (error) {
-        res.status(500).json({ message: 'loi cmnr' });
+        res.status(500).json({ message: 'Some thing went wrong!!!' });
     }
 }
 
