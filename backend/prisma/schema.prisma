@@ -89,7 +89,6 @@ model Item {
 enum UserRoll {
   USER
   ADMIN
-  SUPERADMIN
 }
 
 enum ItemStatus {

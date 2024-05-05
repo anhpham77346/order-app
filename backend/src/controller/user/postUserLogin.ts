@@ -8,6 +8,16 @@ type LoginReq = {
     password: string;
 }
 
+export type DataToken = {
+    id: number,
+    fullName: string,
+    email: string,
+    role: 'USER' | 'ADMIN',
+    phoneNumber: string,
+    createdAt: string,
+    deletedAt: string
+}
+
 async function postUserLogin(req: Request, res: Response) {
     try {
         const { email, password } = req.body as LoginReq;
