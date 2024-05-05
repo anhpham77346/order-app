@@ -1,7 +1,4 @@
-function postUserLogin(data: {
-    email: string,
-    password: string
-}) {
+function postUserLogin() {
     
 }
 
