@@ -6,7 +6,7 @@ type UserReq = {
     fullName: string;
     email: string;
     password: string;
-    role: 'USER' | 'ADMIN' | 'SUPERADMIN';
+    role: 'USER' | 'ADMIN';
     phoneNumber: string;
 }
 

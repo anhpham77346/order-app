@@ -1,12 +1,16 @@
 // Import necessary modules
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request as ExpressRequest, Response } from "express";
 import dotenv from 'dotenv';
 import routes from "./routes";
 import { PrismaClient } from "@prisma/client";
+import { DataToken } from "./controller/user/postUserLogin";
 
 // Create an Express app instance
 const app: Express = express();
 export const prisma = new PrismaClient();
+export interface Request extends ExpressRequest {
+  user?: DataToken;
+}
 
 // Load environment variables from .env file
 dotenv.config();
