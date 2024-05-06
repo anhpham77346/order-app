@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import Button from "../atoms/Button";
 import { ChangeEvent, FormEvent, useState } from "react";
-import Input from "../atoms/Input";
+import { Link } from "react-router-dom";
 import postUserLogin from "../api/user/postUserLogin";
+import Button from "../atoms/Button";
+import Input from "../atoms/Input";
 
 function LoginTemplate() {
     // Form data state
@@ -14,10 +14,12 @@ function LoginTemplate() {
         password: ''
     });
 
-    function onSubmit(event: FormEvent<HTMLFormElement>) {
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        postUserLogin(formData);
+        const res = await postUserLogin(formData);
+
+        localStorage.setItem('123-user', JSON.stringify(res));
     }
 
     return (
@@ -61,8 +63,8 @@ function LoginTemplate() {
                     </div>
 
                     <div>
-                        <Button typeBtn="primary" type="submit">
-                            Đăng kí
+                        <Button typeBtn="primary" type="submit" className="w-full">
+                            Đăng nhập
                         </Button>
                     </div>
                 </form>

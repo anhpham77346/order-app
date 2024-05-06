@@ -29,6 +29,15 @@ async function postUserRegister(req: Request, res: Response) {
                 password: hashedPassword,
                 role: data.role,
                 phoneNumber: data.phoneNumber
+            },
+            select: {
+                id: true,
+                fullName: true,
+                email: true,
+                role: true,
+                phoneNumber: true,
+                createdAt: true,
+                deletedAt: true,
             }
         });
 

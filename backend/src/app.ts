@@ -1,6 +1,7 @@
 // Import necessary modules
 import express, { Express, Request as ExpressRequest, Response } from "express";
 import dotenv from 'dotenv';
+import cors from 'cors';
 import routes from "./routes";
 import { PrismaClient } from "@prisma/client";
 import { DataToken } from "./controller/user/postUserLogin";
@@ -14,6 +15,9 @@ export interface Request extends ExpressRequest {
 
 // Load environment variables from .env file
 dotenv.config();
+
+// CORS config
+app.use(cors());
 
 // Define the port number to listen on
 const port = process.env.PORT || 3000;
