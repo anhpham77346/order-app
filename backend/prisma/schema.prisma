@@ -78,10 +78,11 @@ model Item {
   description  String?
   price        Int
   category     ItemCategory // Loại món ăn
-  status       ItemStatus // Đang order món hay đã order thành công
+  // status       ItemStatus // Đang order món hay đã order thành công
   availability ItemAvailability // Còn hàng hay hết hàng
   createdAt    DateTime         @default(now())
   deletedAt    DateTime?
+  imgLink      String?
 
   orderItems OrderItem[]
 }
@@ -91,10 +92,10 @@ enum UserRoll {
   ADMIN
 }
 
-enum ItemStatus {
-  ORDERED
-  SERVED
-}
+// enum ItemStatus {
+//   ORDERED
+//   SERVED
+// }
 
 enum ItemAvailability {
   IN_STOCK
