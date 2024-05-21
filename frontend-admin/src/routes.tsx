@@ -5,6 +5,7 @@ export const checkUserLoggedIn = () => {
 
 export const routes = {
   home: '/',
+  menu: '/menu',
   addItem: '/add-item',
   login: '/login',
   register: '/register'

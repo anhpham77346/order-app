@@ -29,8 +29,6 @@ function Sidebar() {
                     </div>
                 </div>
             </div>
-
-            {/* Body */}
         </div>
     );
 };

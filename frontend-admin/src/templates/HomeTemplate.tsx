@@ -1,11 +1,19 @@
-import Content from "../organisms/Content";
+import BodyMenu from "../molecules/BodyMenu";
+import Hearder from "../molecules/Hearder";
 import Sidebar from "../organisms/Sidebar";
 
-function HomeTemplate() {
+interface HomeTemplateProps {
+    type: 'MENU';
+}
+
+function HomeTemplate({ type }: HomeTemplateProps) {
     return (
         <div className="flex">
             <Sidebar />
-            <Content />
+            <div className="flex-1">
+                <Hearder />
+                {type === 'MENU' && <BodyMenu />}
+            </div>
         </div>
     );
 };

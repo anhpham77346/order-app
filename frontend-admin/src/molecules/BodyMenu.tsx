@@ -1,4 +1,4 @@
-function Body() {
+function BodyMenu() {
     return (
         <div className="">
             <div className="h-[100vh] px-6 py-3">
@@ -107,4 +107,4 @@ function Body() {
     );
 };
 
-export default Body;
+export default BodyMenu;

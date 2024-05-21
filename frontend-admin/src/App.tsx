@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
+import Menu from './pages/Menu';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import AddItem from './pages/AddItem'
@@ -18,7 +18,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={routes.home} element={<PrivateRoute element={<Home />} />} />
+        <Route path={routes.home} element={<Navigate to={routes.menu} />} />
+        <Route path={routes.menu} element={<PrivateRoute element={<Menu />} />} />
         <Route path={routes.addItem} element={<PrivateRoute element={<AddItem />} />} />
         <Route path={routes.login} element={<Login />} />
         <Route path={routes.register} element={<Register />} />
