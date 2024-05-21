@@ -3,15 +3,16 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import AddItem from './pages/AddItem'
+import { routes } from './routes';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/add-item" element={<AddItem />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path={routes.home} element={<Home />} />
+        <Route path={routes.addItem} element={<AddItem />} />
+        <Route path={routes.login} element={<Login />} />
+        <Route path={routes.register} element={<Register />} />
       </Routes>
     </BrowserRouter>
   )
