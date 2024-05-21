@@ -67,7 +67,7 @@ function RegisterTemplate() {
             </div>
 
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+                <img className="h-20 mx-auto" src="/icon.png" alt="" />
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Đăng ký</h2>
             </div>
 
@@ -137,11 +137,12 @@ function RegisterTemplate() {
                         </Button>
                     </div>
                 </form>
-
-                <p className="mt-10 text-center text-sm text-gray-500">
-                    Bạn đã có tài khoản?
-                    <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Đăng nhập</a>
-                </p>
+                <Link to={routes.login}>
+                    <div className="mt-10 text-center text-sm text-gray-500">
+                        Bạn đã có tài khoản?
+                        <span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Đăng nhập</span>
+                    </div>
+                </Link>
             </div>
         </div>
     );
