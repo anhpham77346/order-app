@@ -1,10 +1,73 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 import Input from "../atoms/Input";
 import Textarea from "../atoms/Textarea";
 import Button from "../atoms/Button";
+import { ChangeEvent, FormEvent, useState } from "react";
+import postCreateItem from "../api/item/postCreateItem";
+import Select from "../atoms/Slect";
+
+// Khai báo enum ItemCategory
+enum ItemCategory {
+    DESSERT = "Tráng miệng",
+    MAIN_COURSE = "Món chính",
+    APPETIZER = "Món khai vị",
+    BEVERAGE = "Đồ uống",
+    SNACK = "Đồ ăn vặt"
+}
 
 function AddItemTemplate() {
+    const navigate = useNavigate();
+    const [file, setFile] = useState<string | undefined>(undefined); // Save base64 string of image
+    const [itemName, setItemName] = useState("");
+    const [itemPrice, setItemPrice] = useState("");
+    const [itemCategory, setItemCategory] = useState<"DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK">("DESSERT");
+    const [itemDescription, setItemDescription] = useState("");
+    const [itemAvailability, setItemAvailability] = useState(false);
+
+    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        // Kiểm tra xem các giá trị state có tồn tại và không rỗng không
+        if (!itemName || !itemPrice || !itemDescription) {
+            console.error('Vui lòng điền đầy đủ thông tin.');
+            return; // Nếu có ít nhất một giá trị state rỗng, return khỏi hàm onSubmit()
+        }
+
+        // Kiểm tra xem itemPrice có phải là số nguyên không
+        if (!Number.isInteger(Number(itemPrice))) {
+            console.error('itemPrice phải là một số nguyên.');
+            return; // Nếu không phải, return khỏi hàm onSubmit()
+        }
+
+        await postCreateItem({
+            name: itemName,
+            description: itemDescription,
+            price: Number(itemPrice),
+            category: itemCategory as "DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK",
+            availability: itemAvailability,
+            imgBase64: file
+        });
+
+        navigate(routes.menu);
+    }
+
+    /**
+     * Xử lý mã hoá file thành dạng base64
+     */
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
+        if (!selectedFile) return;
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFile(reader.result as string);
+        };
+        if (selectedFile) {
+            reader.readAsDataURL(selectedFile);
+        }
+    };
+
     return (
         <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
             <div className="flex items-center gap-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
@@ -23,36 +86,47 @@ function AddItemTemplate() {
                 <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Thêm món ăn</h2>
                 {/* <p className="mt-2 text-lg leading-8 text-gray-600">Aute magna irure deserunt veniam aliqua magna enim voluptate.</p> */}
             </div>
-            <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+
+            <form onSubmit={onSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                     <div>
                         <label className="block text-sm font-semibold leading-6 text-gray-900">Tên món ăn</label>
                         <div className="mt-2.5">
-                            <Input type={"text"} ></Input>
+                            <Input type={"text"} onChange={(e: ChangeEvent<HTMLInputElement>) => setItemName(e.target.value)}></Input>
                         </div>
                     </div>
                     <div>
                         <label className="block text-sm font-semibold leading-6 text-gray-900">Giá</label>
                         <div className="mt-2.5">
-                            <Input type={"text"} ></Input>
+                            <Input type={"text"} onChange={(e: ChangeEvent<HTMLInputElement>) => setItemPrice(e.target.value)}></Input>
                         </div>
                     </div>
                     <div className="sm:col-span-2">
                         <label className="block text-sm font-semibold leading-6 text-gray-900">Loại món ăn</label>
                         <div className="mt-2.5">
-                            <Input type={"text"} ></Input>
+                            {/* Trường select với các lựa chọn từ enum ItemCategory */}
+                            <Select onChange={(event: ChangeEvent<HTMLSelectElement>) => { setItemCategory(event.target.value as "DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK"); }}
+                                className="bg-white w-full">
+                                {Object.values(ItemCategory).map((category) => (
+                                    <option key={category} value={category}>{category}</option>
+                                ))}
+                            </Select>
                         </div>
                     </div>
+
                     <div className="sm:col-span-2">
                         <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">Mô tả</label>
                         <div className="mt-2.5">
-                            <Textarea></Textarea>
+                            <Textarea onChange={(e: ChangeEvent<HTMLInputElement>) => setItemDescription(e.target.value)}></Textarea>
                         </div>
+                    </div>
+                    <div>
+                        <input type="file" onChange={handleFileChange} />
                     </div>
                     <div className="flex gap-x-2 sm:col-span-2">
                         <label htmlFor="item" className="flex gap-x-2">
                             <div className="flex h-6 items-center">
-                                <input id="item" type="checkbox" />
+                                <input id="item" type="checkbox" onChange={(e: ChangeEvent<HTMLInputElement>) => setItemAvailability(e.target.checked)} />
                             </div>
                             <div className="text-sm leading-6 text-gray-600">
                                 Còn hàng

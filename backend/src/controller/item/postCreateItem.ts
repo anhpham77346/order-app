@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { CustomReq } from '../../middleware/userMiddleware';
-import { ItemAvailability, ItemCategory } from '@prisma/client';
+import { ItemCategory } from '@prisma/client';
 import { prisma } from '../../app';
 import { saveBase64Image } from '../../until';
 
@@ -9,7 +9,7 @@ interface ReqType {
     description?: string;
     price: number;
     category: ItemCategory;
-    availability: ItemAvailability;
+    availability: boolean;
 
     imgBase64?: string;
 }

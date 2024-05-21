@@ -5,6 +5,7 @@ import cors from 'cors';
 import routes from "./routes";
 import { PrismaClient } from "@prisma/client";
 import { DataToken } from "./controller/user/postUserLogin";
+import bodyParser from 'body-parser';
 
 // Create an Express app instance
 const app: Express = express();
@@ -12,6 +13,9 @@ export const prisma = new PrismaClient();
 export interface Request extends ExpressRequest {
   user?: DataToken;
 }
+
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // Load environment variables from .env file
 dotenv.config();

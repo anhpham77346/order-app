@@ -73,14 +73,14 @@ model OrderItem {
 }
 
 model Item {
-  id           Int              @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   name         String
   description  String?
   price        Int
   category     ItemCategory // Loại món ăn
   // status       ItemStatus // Đang order món hay đã order thành công
-  availability ItemAvailability // Còn hàng hay hết hàng
-  createdAt    DateTime         @default(now())
+  availability Boolean // Còn hàng hay hết hàng
+  createdAt    DateTime     @default(now())
   deletedAt    DateTime?
   imgLink      String?
 
@@ -96,11 +96,6 @@ enum UserRoll {
 //   ORDERED
 //   SERVED
 // }
-
-enum ItemAvailability {
-  IN_STOCK
-  OUT_OF_STOCK
-}
 
 enum ItemCategory {
   DESSERT

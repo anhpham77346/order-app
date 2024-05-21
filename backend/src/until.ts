@@ -14,8 +14,11 @@ export async function saveBase64Image(base64String: string, dir: string, fileNam
         // Tạo đường dẫn đầy đủ tới tệp tin ảnh
         const imagePath = path.join(uploadDir, fileName);
 
-        // Ghi dữ liệu base64 vào tệp tin
-        await fs.promises.writeFile(imagePath, base64String, 'base64');
+        const base64Data = base64String.split(';base64,').pop();
+        if (base64Data) {
+            // Ghi dữ liệu base64 vào tệp tin
+            await fs.promises.writeFile(imagePath, base64Data, 'base64');
+        }
 
         // Trả về đường dẫn lưu trữ của ảnh
         return imagePath;
