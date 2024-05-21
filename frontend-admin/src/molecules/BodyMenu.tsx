@@ -1,4 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import Button from "../atoms/Button";
+import { routes } from "../routes";
+
 function BodyMenu() {
+    const navigate = useNavigate();
+
     return (
         <div className="">
             <div className="h-[100vh] px-6 py-3">
@@ -7,11 +13,7 @@ function BodyMenu() {
                         <p className="font-semibold text-[20px]">Món ăn</p>
                         <p>Các loại món ăn</p>
                     </div>
-                    <div className="border-2 border-green-800 w-[100px] flex justify-center items-center h-[40px] rounded-md">
-                        <button className="border-2 border-green-800 w-[85%] font-semibold bg-green-500 rounded-md">
-                            Thêm
-                        </button>
-                    </div>
+                    <Button onClick={() => { navigate(routes.addItem) }} typeBtn={"primary"} type={"button"}>Thêm</Button>
                 </div>
                 <div className="border-2 border-gray-300 h-[100px] w-full my-3 rounded-xl flex justify-between items-center px-3 gap-20">
                     <div className="flex gap-3">

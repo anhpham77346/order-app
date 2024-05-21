@@ -18,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={routes.home} element={<Navigate to={routes.menu} />} />
+        <Route path={routes.home} element={<PrivateRoute element={<Menu />} />} />
         <Route path={routes.menu} element={<PrivateRoute element={<Menu />} />} />
         <Route path={routes.addItem} element={<PrivateRoute element={<AddItem />} />} />
         <Route path={routes.login} element={<Login />} />
