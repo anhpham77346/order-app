@@ -1,7 +1,6 @@
 import { Response } from 'express';
-import { CustomReq } from '../../middleware/userMiddleware';
 import { ItemCategory } from '@prisma/client';
-import { prisma } from '../../app';
+import { prisma, Request } from '../../app';
 import { saveBase64Image } from '../../until';
 
 interface ReqType {
@@ -21,7 +20,7 @@ function generateUniqueFilename(): string {
     return `item_${timestamp}_${randomString}`;
 }
 
-async function postCreateItem(req: CustomReq, res: Response) {
+async function postCreateItem(req: Request, res: Response) {
     try {
         const bodyData = req.body as ReqType;
 
