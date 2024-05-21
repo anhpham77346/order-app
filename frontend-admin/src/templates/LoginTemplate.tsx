@@ -20,7 +20,7 @@ function LoginTemplate() {
 
         const res = await postUserLogin(formData);
 
-        localStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem(`${import.meta.env.VITE_APP_URL}-user`, JSON.stringify(res));
     }
 
     return (
