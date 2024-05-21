@@ -2,7 +2,7 @@ import HomeTemplate from "../templates/HomeTemplate";
 
 function Home() {
     return (
-        <HomeTemplate />
+        <HomeTemplate type="home" />
     );
 };
 
