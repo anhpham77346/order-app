@@ -5,6 +5,7 @@ import getInfoUser, { InfoRes } from "../api/user/getInfoUser";
 import getAllItem, { GetAllItemRes } from "../api/item/getAllItem";
 import getAllTable, { GetAllTableRes } from "../api/table/getAllTable";
 import BodyTable from "../molecules/BodyTable";
+import BodyTableDetail from "../molecules/BodyTableDetail";
 
 interface HomeTemplateProps {
     type: 'menu' | 'home' | 'table' | 'table-detail';
@@ -57,6 +58,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
 
                 {type === 'menu' && <BodyMenu data={items} />}
                 {type === 'table' && <BodyTable />}
+                {type === 'table-detail' && <BodyTableDetail />}
             </div>
         </div>
     );
