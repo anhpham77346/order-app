@@ -6,7 +6,7 @@ function BodyTable({ data }: { data: GetAllTableRes[] }) {
         <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-3">
             <div className="flex justify-between items-center ">
                 <div>
-                    <p className="font-semibold text-[20px]">Nhập mã số bàn</p>
+                    <p className="font-semibold text-[20px]">Table</p>
                 </div>
             </div>
             {data.map(i => (
