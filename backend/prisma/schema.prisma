@@ -64,6 +64,8 @@ model OrderItem {
   // Khóa ngoại tham chiếu đến bảng Order
   orderId Int
   order   Order @relation(fields: [orderId], references: [id])
+
+  @@unique([itemId, orderId])
 }
 
 model Item {
