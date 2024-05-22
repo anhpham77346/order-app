@@ -6,6 +6,6 @@ import getAllItem from '../controller/item/getAllItem';
 const itemRoutes = express.Router();
 
 itemRoutes.post('/create', isAdminRole, postCreateItem);
-itemRoutes.get('/all', isAdminRole, getAllItem);
+itemRoutes.get('/all', getAllItem);
 
 export default itemRoutes;
