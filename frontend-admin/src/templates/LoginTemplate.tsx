@@ -21,7 +21,7 @@ function LoginTemplate() {
 
         const res = await postUserLogin(formData);
 
-        localStorage.setItem(`${import.meta.env.VITE_APP_URL}-user`, JSON.stringify(res));
+        localStorage.setItem(`${import.meta.env.VITE_APP_API_URL}-user`, JSON.stringify(res));
         navigate(routes.home);
     }
 

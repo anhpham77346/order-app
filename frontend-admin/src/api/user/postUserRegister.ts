@@ -15,7 +15,7 @@ async function postUserRegister(data: {
     role: 'USER' | 'ADMIN';
     phoneNumber: string;
 }) {
-    const res = await fetch(`${import.meta.env.VITE_APP_URL}/api/user/register`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/user/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

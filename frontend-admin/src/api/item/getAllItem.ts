@@ -1,14 +1,16 @@
-export interface InfoRes {
+export interface GetAllItemRes {
     id: number;
-    fullName: string;
-    email: string;
-    role: "USER" | "ADMIN";
-    phoneNumber: string;
+    name: string;
+    description: string | null;
+    price: number;
+    category: "DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK";
+    availability: boolean;
     createdAt: string;
-    deletedAt: string;
+    deletedAt: string | null;
+    imgLink: string | null;
 }
 
-async function getInfoUser() {
+async function getAllItem() {
     const userDataString = localStorage.getItem(`${import.meta.env.VITE_APP_API_URL}-user`);
 
     if (!userDataString) {
@@ -19,7 +21,7 @@ async function getInfoUser() {
     const userData = JSON.parse(userDataString);
     const token = userData.token;
 
-    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/user/info`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/item/all`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -28,12 +30,10 @@ async function getInfoUser() {
     });
 
     if (res.ok) {
-        return (await res.json()) as {
-            data: InfoRes
-        };
+        return (await res.json()) as GetAllItemRes[];
     } else {
-        throw Error('Login failed!!!');
+        throw Error('Failed!!!');
     }
 }
 
-export default getInfoUser;
+export default getAllItem;

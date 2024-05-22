@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BodyMenu from "../molecules/BodyMenu";
 import Sidebar from "../organisms/Sidebar";
 import getInfoUser, { InfoRes } from "../api/user/getInfoUser";
+import getAllItem, { GetAllItemRes } from "../api/item/getAllItem";
 
 interface HomeTemplateProps {
     type: 'menu' | 'home';
@@ -9,14 +10,18 @@ interface HomeTemplateProps {
 
 function HomeTemplate({ type }: HomeTemplateProps) {
     const [user, setUser] = useState<InfoRes>();
+    const [items, setItems] = useState<GetAllItemRes[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Lấy thông tin user
                 const userData = await getInfoUser();
-                console.log(userData?.data);
-                
                 setUser(userData?.data);
+
+                // Lấy tất cả menu ra
+                const itemsData = await getAllItem();
+                setItems(itemsData ?? []);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -43,7 +48,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
                     </div>
                 </div >
 
-                {type === 'menu' && <BodyMenu />}
+                {type === 'menu' && <BodyMenu data={items} />}
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ async function postCreateItem(data: {
 
     imgBase64?: string;
 }) {
-    const userDataString = localStorage.getItem(`${import.meta.env.VITE_APP_URL}-user`);
+    const userDataString = localStorage.getItem(`${import.meta.env.VITE_APP_API_URL}-user`);
 
     if (!userDataString) {
         console.error('Không tìm thấy dữ liệu.');
@@ -17,7 +17,7 @@ async function postCreateItem(data: {
     const userData = JSON.parse(userDataString);
     const token = userData.token;
 
-    const res = await fetch(`${import.meta.env.VITE_APP_URL}/api/item/create`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/item/create`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,

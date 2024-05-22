@@ -6,7 +6,7 @@ async function postUserLogin(data: {
     email: string,
     password: string
 }) {
-    const res = await fetch(`${import.meta.env.VITE_APP_URL}/api/user/login`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/user/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
