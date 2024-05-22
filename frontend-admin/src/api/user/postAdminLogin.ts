@@ -2,11 +2,11 @@ interface LoginRes {
     token: string
 }
 
-async function postUserLogin(data: {
+async function postAdminLogin(data: {
     email: string,
     password: string
 }) {
-    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/user/login`, {
+    const res = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/user/admin-login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -21,4 +21,4 @@ async function postUserLogin(data: {
     }
 }
 
-export default postUserLogin;
+export default postAdminLogin;

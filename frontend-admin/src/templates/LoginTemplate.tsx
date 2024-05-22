@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import postUserLogin from "../api/user/postUserLogin";
+import postAdminLogin from "../api/user/postAdminLogin";
 import Button from "../atoms/Button";
 import Input from "../atoms/Input";
 import { routes } from './../routes';
@@ -19,7 +19,7 @@ function LoginTemplate() {
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const res = await postUserLogin(formData);
+        const res = await postAdminLogin(formData);
 
         localStorage.setItem(`${import.meta.env.VITE_APP_API_URL}-user`, JSON.stringify(res));
         navigate(routes.home);
