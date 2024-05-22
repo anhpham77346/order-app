@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetAllTableRes } from "../api/table/getAllTable";
+// fill={color}
 
 function Table({ data }: { data: GetAllTableRes }) {
     const [color, setColor] = useState('#00ACD7');

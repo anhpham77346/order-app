@@ -3,7 +3,7 @@ import BodyMenu from "../molecules/BodyMenu";
 import Sidebar from "../organisms/Sidebar";
 import getInfoUser, { InfoRes } from "../api/user/getInfoUser";
 import getAllItem, { GetAllItemRes } from "../api/item/getAllItem";
-import getAllTable, { GetAllTableRes } from "../api/item/getAllTable";
+import getAllTable, { GetAllTableRes } from "../api/table/getAllTable";
 import BodyTable from "../molecules/BodyTable";
 
 interface HomeTemplateProps {
