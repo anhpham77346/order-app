@@ -8,21 +8,19 @@ function BodyMenu({ data }: { data: GetAllItemRes[] }) {
     const navigate = useNavigate();
 
     return (
-        <div className="">
-            <div className="h-[100vh] px-6 py-3">
-                <div className="flex justify-between items-center ">
-                    <div>
-                        <p className="font-semibold text-[20px]">Món ăn</p>
-                        <p>Các loại món ăn</p>
-                    </div>
-                    <Button onClick={() => { navigate(routes.addItem) }} typeBtn={"primary"} type={"button"}>Thêm</Button>
+        <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-3">
+            <div className="flex justify-between items-center ">
+                <div>
+                    <p className="font-semibold text-[20px]">Món ăn</p>
+                    <p>Các loại món ăn</p>
                 </div>
-
-                {data.map(i => (
-                    <Item key={i.id} data={i}></Item>
-                ))}
+                <Button onClick={() => { navigate(routes.addItem) }} typeBtn={"primary"} type={"button"}>Thêm</Button>
             </div>
-        </div >
+
+            {data.map(i => (
+                <Item key={i.id} data={i}></Item>
+            ))}
+        </div>
     );
 };
 
