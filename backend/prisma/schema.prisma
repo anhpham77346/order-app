@@ -29,7 +29,7 @@ model Table {
   name            String
   seatingCapacity Int
   qrCode          String?
-  stringCode      String?
+  stringCode      String?   @unique
   createdAt       DateTime  @default(now())
   deletedAt       DateTime?
   isActive        Boolean
