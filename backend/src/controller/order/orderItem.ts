@@ -27,19 +27,16 @@ async function orderItem(req: Request, res: Response) {
             }
         });
 
-        const item = await prisma.orderItem.findUnique({
+        const item = await prisma.item.findUnique({
             where: {
-                itemId_orderId: {
-                    itemId,
-                    orderId: t?.orders[0].id ?? 0
-                }
+                id: itemId,
             }
         });
 
         const newOrderItem = await prisma.orderItem.create({
             data: {
-                quantity: item!.quantity,
-                unitPrice: item!.unitPrice,
+                quantity: 1,
+                unitPrice: item!.price,
                 item: { connect: { id: itemId } },
                 order: { connect: { id: t?.orders[0].id } },
             },

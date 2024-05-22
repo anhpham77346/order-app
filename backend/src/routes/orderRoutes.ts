@@ -4,6 +4,6 @@ import orderItem from '../controller/order/orderItem';
 
 const orderRoutes = express.Router();
 
-orderRoutes.get('/order', login, orderItem);
+orderRoutes.post('/order', login, orderItem);
 
 export default orderRoutes;
