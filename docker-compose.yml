@@ -19,6 +19,15 @@ services:
       - "80:5173"
     command: npm run dev
 
+  # frontend-user service
+  frontend-user:
+    build: ./frontend-user
+    volumes:
+      - ./frontend-user:/app
+    ports:
+      - "81:5173"
+    command: npm run dev
+
   # database
   db:
     image: mysql:8.3
