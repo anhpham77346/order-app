@@ -20,7 +20,7 @@ async function openTable(req: Request, res: Response) {
     try {
         const { tableId } = req.body as DataReq;
 
-        let stringCode = generateStringCode(10); // Tạo một stringCode ban đầu
+        let stringCode = generateStringCode(4); // Tạo một stringCode ban đầu
 
         let isDuplicate = true;
         while (isDuplicate) {
