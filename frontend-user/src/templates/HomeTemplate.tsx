@@ -7,7 +7,7 @@ import getAllTable, { GetAllTableRes } from "../api/table/getAllTable";
 import BodyTable from "../molecules/BodyTable";
 
 interface HomeTemplateProps {
-    type: 'menu' | 'home' | 'table';
+    type: 'menu' | 'home' | 'table' | 'table-detail';
 }
 
 function HomeTemplate({ type }: HomeTemplateProps) {
