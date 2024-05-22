@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GetAllTableRes } from "../api/table/getAllTable";
 // fill={color}
 
 function Table({ data }: { data: GetAllTableRes }) {
     const [color, setColor] = useState('#00ACD7');
 
-    useEffect(() => {
-        if (data.isActive) {
-            setColor('#cbd5e1');
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (data.isActive) {
+    //         setColor('#cbd5e1');
+    //     }
+    // }, []);
 
     return (
         <div className="border-2 border-gray-300 w-full my-3 py-3 rounded-xl flex items-center">

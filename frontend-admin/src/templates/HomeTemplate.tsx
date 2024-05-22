@@ -5,9 +5,10 @@ import getInfoUser, { InfoRes } from "../api/user/getInfoUser";
 import getAllItem, { GetAllItemRes } from "../api/item/getAllItem";
 import BodyTable from "../molecules/BodyTable";
 import getAllTable, { GetAllTableRes } from "../api/table/getAllTable";
+import BodyTableDetail from "../molecules/BodyTableDetail";
 
 interface HomeTemplateProps {
-    type: 'menu' | 'home' | 'table';
+    type: 'menu' | 'home' | 'table' | 'tableDetail';
 }
 
 function HomeTemplate({ type }: HomeTemplateProps) {
@@ -57,6 +58,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
 
                 {type === 'menu' && <BodyMenu data={items} />}
                 {type === 'table' && <BodyTable data={tables} />}
+                {type === 'tableDetail' && <BodyTableDetail data={tables} />}
             </div>
         </div>
     );

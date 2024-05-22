@@ -7,6 +7,7 @@ export const routes = {
   home: '/',
   menu: '/menu',
   table: '/table',
+  tableDetail: '/table-detail',
   addItem: '/add-item',
   login: '/login',
   register: '/register'
