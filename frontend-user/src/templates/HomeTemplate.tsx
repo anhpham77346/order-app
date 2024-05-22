@@ -58,7 +58,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
 
                 {type === 'menu' && <BodyMenu data={items} />}
                 {type === 'table' && <BodyTable />}
-                {type === 'table-detail' && <BodyTableDetail />}
+                {type === 'table-detail' && <BodyTableDetail data={items}/>}
             </div>
         </div>
     );
