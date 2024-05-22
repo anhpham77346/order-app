@@ -6,6 +6,7 @@ interface ButtonProps {
     typeBtn: 'primary',
     type: 'submit' | 'button',
     children?: ReactNode
+    disabled?: boolean
 }
 
 function Button(props: ButtonProps) {
@@ -13,6 +14,7 @@ function Button(props: ButtonProps) {
         {
             props.typeBtn === 'primary' && (
                 <button onClick={() => props.onClick && props.onClick()} type={props.type}
+                    disabled={props.disabled}
                     className={`${props.className ?? ''} flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
                     {props.children}
                 </button>
