@@ -1,72 +1,37 @@
-import { Link, useNavigate } from "react-router-dom";
-import { routes } from "../routes";
-import Input from "../atoms/Input";
-import Textarea from "../atoms/Textarea";
-import Button from "../atoms/Button";
 import { ChangeEvent, FormEvent, useState } from "react";
-import postCreateItem from "../api/item/postCreateItem";
-import Select from "../atoms/Slect";
-
-// Khai báo enum ItemCategory
-enum ItemCategory {
-    DESSERT = "Tráng miệng",
-    MAIN_COURSE = "Món chính",
-    APPETIZER = "Món khai vị",
-    BEVERAGE = "Đồ uống",
-    SNACK = "Đồ ăn vặt"
-}
+import { Link, useNavigate } from "react-router-dom";
+import postCreateTable from "../api/table/postCreateTable";
+import Button from "../atoms/Button";
+import Input from "../atoms/Input";
+import { routes } from "../routes";
 
 function AddTableTemplate() {
     const navigate = useNavigate();
-    const [file, setFile] = useState<string | undefined>(undefined); // Save base64 string of image
     const [itemName, setItemName] = useState("");
-    const [itemPrice, setItemPrice] = useState("");
-    const [itemCategory, setItemCategory] = useState<"DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK">("DESSERT");
-    const [itemDescription, setItemDescription] = useState("");
-    const [itemAvailability, setItemAvailability] = useState(false);
+    const [seatingCapacity, setSeatingCapacity] = useState("");
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         // Kiểm tra xem các giá trị state có tồn tại và không rỗng không
-        if (!itemName || !itemPrice || !itemDescription) {
+        if (!itemName || !seatingCapacity) {
             console.error('Vui lòng điền đầy đủ thông tin.');
             return; // Nếu có ít nhất một giá trị state rỗng, return khỏi hàm onSubmit()
         }
 
-        // Kiểm tra xem itemPrice có phải là số nguyên không
-        if (!Number.isInteger(Number(itemPrice))) {
-            console.error('itemPrice phải là một số nguyên.');
+        // Kiểm tra xem seatingCapacity có phải là số nguyên không
+        if (!Number.isInteger(Number(seatingCapacity))) {
+            console.error('seatingCapacity phải là một số nguyên.');
             return; // Nếu không phải, return khỏi hàm onSubmit()
         }
 
-        await postCreateItem({
+        await postCreateTable({
             name: itemName,
-            description: itemDescription,
-            price: Number(itemPrice),
-            category: itemCategory as "DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK",
-            availability: itemAvailability,
-            imgBase64: file
+            seatingCapacity: Number(seatingCapacity)
         });
 
-        navigate(routes.menu);
+        navigate(routes.table);
     }
-
-    /**
-     * Xử lý mã hoá file thành dạng base64
-     */
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = event.target.files?.[0];
-        if (!selectedFile) return;
-
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setFile(reader.result as string);
-        };
-        if (selectedFile) {
-            reader.readAsDataURL(selectedFile);
-        }
-    };
 
     return (
         <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -98,40 +63,8 @@ function AddTableTemplate() {
                     <div>
                         <label className="block text-sm font-semibold leading-6 text-gray-900">Số chỗ ngồi</label>
                         <div className="mt-2.5">
-                            <Input type={"text"} onChange={(e: ChangeEvent<HTMLInputElement>) => setItemPrice(e.target.value)}></Input>
+                            <Input type={"text"} onChange={(e: ChangeEvent<HTMLInputElement>) => setSeatingCapacity(e.target.value)}></Input>
                         </div>
-                    </div>
-                    <div className="sm:col-span-2">
-                        <label className="block text-sm font-semibold leading-6 text-gray-900">Loại món ăn</label>
-                        <div className="mt-2.5">
-                            {/* Trường select với các lựa chọn từ enum ItemCategory */}
-                            <Select onChange={(event: ChangeEvent<HTMLSelectElement>) => { setItemCategory(event.target.value as "DESSERT" | "MAIN_COURSE" | "APPETIZER" | "BEVERAGE" | "SNACK"); }}
-                                className="bg-white w-full">
-                                {Object.values(ItemCategory).map((category) => (
-                                    <option key={category} value={category}>{category}</option>
-                                ))}
-                            </Select>
-                        </div>
-                    </div>
-
-                    <div className="sm:col-span-2">
-                        <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">Mô tả</label>
-                        <div className="mt-2.5">
-                            <Textarea onChange={(e: ChangeEvent<HTMLInputElement>) => setItemDescription(e.target.value)}></Textarea>
-                        </div>
-                    </div>
-                    <div>
-                        <input type="file" onChange={handleFileChange} />
-                    </div>
-                    <div className="flex gap-x-2 sm:col-span-2">
-                        <label htmlFor="item" className="flex gap-x-2">
-                            <div className="flex h-6 items-center">
-                                <input id="item" type="checkbox" onChange={(e: ChangeEvent<HTMLInputElement>) => setItemAvailability(e.target.checked)} />
-                            </div>
-                            <div className="text-sm leading-6 text-gray-600">
-                                Còn hàng
-                            </div>
-                        </label>
                     </div>
                 </div>
                 <div className="mt-10">
