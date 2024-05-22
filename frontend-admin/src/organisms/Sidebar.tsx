@@ -1,4 +1,14 @@
+import { useNavigate } from "react-router-dom";
+import { routes } from "../routes";
+
 function Sidebar() {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem(`${import.meta.env.VITE_APP_API_URL}-user`);
+        navigate(routes.login);
+    }
+
     return (
         <div className="bg-[#1C2434] flex flex-col w-[250px] h-screen text-white p-4">
             {/* Header */}
@@ -6,7 +16,7 @@ function Sidebar() {
                 <img className="h-[70px]" src="/icon.png" alt="" />
                 <p className="text-2xl font-bold">Order app</p>
             </div>
-            <div className="mt-10">
+            <div className="mt-10 flex-1">
                 <div className="flex gap-4 items-center px-6 py-3 hover:bg-slate-700 rounded-md">
                     <div>
                         <svg className="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,6 +37,15 @@ function Sidebar() {
                     <div>
                         <p>Tài khoản</p>
                     </div>
+                </div>
+            </div>
+
+            <div onClick={logout} className="cursor-pointer flex gap-4 items-center px-6 py-3 hover:bg-slate-700 rounded-md">
+                <div>
+                    <svg fill="#ffffff" width="18px" height="18px" viewBox="0 0 32 32" id="Outlined" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Fill"> <path d="M25,2H16V4h9a1,1,0,0,1,1,1V27a1,1,0,0,1-1,1H16v2h9a3,3,0,0,0,3-3V5A3,3,0,0,0,25,2Z"></path> <path d="M21.58,17V15H7l4-4L9.58,9.55l-5,5a2,2,0,0,0,0,2.83l5,5L11,21,7,17Z"></path> </g> </g></svg>
+                </div>
+                <div>
+                    <p>Đăng xuất</p>
                 </div>
             </div>
         </div>
