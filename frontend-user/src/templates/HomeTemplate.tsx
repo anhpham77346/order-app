@@ -3,14 +3,17 @@ import BodyMenu from "../molecules/BodyMenu";
 import Sidebar from "../organisms/Sidebar";
 import getInfoUser, { InfoRes } from "../api/user/getInfoUser";
 import getAllItem, { GetAllItemRes } from "../api/item/getAllItem";
+import getAllTable, { GetAllTableRes } from "../api/item/getAllTable";
+import BodyTable from "../molecules/BodyTable";
 
 interface HomeTemplateProps {
-    type: 'menu' | 'home';
+    type: 'menu' | 'home' | 'table';
 }
 
 function HomeTemplate({ type }: HomeTemplateProps) {
     const [user, setUser] = useState<InfoRes>();
     const [items, setItems] = useState<GetAllItemRes[]>([]);
+    const [tables, setTables] = useState<GetAllTableRes[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,6 +25,10 @@ function HomeTemplate({ type }: HomeTemplateProps) {
                 // Lấy tất cả menu ra
                 const itemsData = await getAllItem();
                 setItems(itemsData ?? []);
+
+                // Lấy tất cả table ra
+                const tablesData = await getAllTable();
+                setTables(tablesData ?? []);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -33,8 +40,8 @@ function HomeTemplate({ type }: HomeTemplateProps) {
     return (
         <div className="flex">
             <Sidebar />
-                <div className="flex-1">
-                    <div className="h-[80px] shadow-md w-full flex justify-end items-center px-6">
+            <div className="flex-1">
+                <div className="h-[80px] shadow-md w-full flex justify-end items-center px-6">
                     <div className="flex justify-between gap-2">
                         <div>
                             <p className="font-medium">Hello</p>
@@ -49,6 +56,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
                 </div >
 
                 {type === 'menu' && <BodyMenu data={items} />}
+                {type === 'table' && <BodyTable />}
             </div>
         </div>
     );

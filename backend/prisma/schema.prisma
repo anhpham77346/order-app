@@ -32,13 +32,10 @@ model Table {
   stringCode      String?
   createdAt       DateTime  @default(now())
   deletedAt       DateTime?
-
-  // Khóa ngoại tham chiếu đến bảng Order
-  order   Order? @relation("TableToOrder", fields: [orderId], references: [id])
-  orderId Int?   @unique
+  isActive        Boolean
 
   // 1-n vs Order
-  orders Order[] @relation("TableToOrders")
+  orders Order[]
 }
 
 model Order {
@@ -46,12 +43,9 @@ model Order {
   createdAt DateTime  @default(now())
   deletedAt DateTime?
 
-  // 1-1 Table
-  tableToOrder Table? @relation("TableToOrder")
-
   // Khóa ngoại tham chiếu đến bảng Table
-  tableToOrdersId Int?
-  tableToOrders   Table? @relation("TableToOrders", fields: [tableToOrdersId], references: [id])
+  tableId Int
+  table   Table @relation(fields: [tableId], references: [id])
 
   orderItems OrderItem[]
 }
@@ -78,7 +72,6 @@ model Item {
   description  String?
   price        Int
   category     ItemCategory // Loại món ăn
-  // status       ItemStatus // Đang order món hay đã order thành công
   availability Boolean // Còn hàng hay hết hàng
   createdAt    DateTime     @default(now())
   deletedAt    DateTime?
@@ -91,11 +84,6 @@ enum UserRoll {
   USER
   ADMIN
 }
-
-// enum ItemStatus {
-//   ORDERED
-//   SERVED
-// }
 
 enum ItemCategory {
   DESSERT

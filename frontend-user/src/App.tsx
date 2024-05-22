@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import AddItem from './pages/AddItem'
 import { checkUserLoggedIn, routes } from './routes';
+import Table from './pages/Table';
 
 interface PrivateRouteProps {
   element: React.ReactNode;
@@ -18,7 +19,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={routes.home} element={<PrivateRoute element={<Menu />} />} />
+        <Route path={routes.home} element={<PrivateRoute element={<Table />} />} />
+        <Route path={routes.talbe} element={<PrivateRoute element={<Table />} />} />
         <Route path={routes.menu} element={<PrivateRoute element={<Menu />} />} />
         <Route path={routes.addItem} element={<PrivateRoute element={<AddItem />} />} />
         <Route path={routes.login} element={<Login />} />
