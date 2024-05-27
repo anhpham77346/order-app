@@ -16,6 +16,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
     const [items, setItems] = useState<GetAllItemRes[]>([]);
     const [tables, setTables] = useState<GetAllTableRes[]>([]);
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 640); // Assuming sm breakpoint is 640px
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,6 +38,14 @@ function HomeTemplate({ type }: HomeTemplateProps) {
         };
 
         fetchData();
+
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 640); // Assuming sm breakpoint is 640px
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const handleToggleSidebar = () => {
@@ -50,7 +59,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
     return (
         <div className="flex">
             {/* Sidebar */}
-            <div className={`sm:block ${isSidebarVisible ? 'absolute block' : 'hidden'}`}>
+            <div className={`${isSmallScreen ? (isSidebarVisible ? 'absolute' : 'hidden') : 'relative'}`}>
                 <Sidebar onClose={handleCloseSidebar}  />
             </div>
             <div className="flex-1">
