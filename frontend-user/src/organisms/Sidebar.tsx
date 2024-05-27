@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 
-function Sidebar() {
+interface SidebarProps {
+    onClose: () => void;
+}
+
+function Sidebar({ onClose }: SidebarProps) {
     const navigate = useNavigate();
     // Kiểm tra xem localStorage có tồn tại hay không
     const hasJoinedTable = localStorage.getItem(`${import.meta.env.VITE_APP_API_URL}-table`);
@@ -31,11 +35,15 @@ function Sidebar() {
 
     return (
         <div className="bg-[#1C2434] flex flex-col w-[250px] h-screen text-white p-4">
+            <div className="sm:hidden flex justify-end mb-5">
+                <svg onClick={onClose} width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#ffffff" fill-rule="evenodd" d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"></path> </g></svg>
+            </div>
             {/* Header */}
             <div className="h-[70px] flex justify-between items-center p-3">
                 <img className="h-[70px]" src="/icon.png" alt="" />
                 <p className="text-2xl font-bold">Order app</p>
             </div>
+            
             <div className="mt-10 flex-1">
                 {hasJoinedTable ? (
                     <>

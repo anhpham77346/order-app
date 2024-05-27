@@ -15,6 +15,7 @@ function HomeTemplate({ type }: HomeTemplateProps) {
     const [user, setUser] = useState<InfoRes>();
     const [items, setItems] = useState<GetAllItemRes[]>([]);
     const [tables, setTables] = useState<GetAllTableRes[]>([]);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,11 +39,26 @@ function HomeTemplate({ type }: HomeTemplateProps) {
         fetchData();
     }, []);
 
+    const handleToggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+
+    const handleCloseSidebar = () => {
+        setIsSidebarVisible(false);
+    };
+
     return (
         <div className="flex">
-            <Sidebar />
+            {/* Sidebar */}
+            <div className={`sm:block ${isSidebarVisible ? 'absolute block' : 'hidden'}`}>
+                <Sidebar onClose={handleCloseSidebar}  />
+            </div>
             <div className="flex-1">
-                <div className="h-[80px] shadow-md w-full flex justify-end items-center px-6">
+                {/* Header */}
+                <div className="h-[80px] shadow-md w-full flex justify-between sm:justify-end items-center px-6">
+                    <button onClick={handleToggleSidebar} className="sm:hidden">
+                        <svg width="25px" height="25px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#000000" fill-rule="evenodd" d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"></path> </g></svg>
+                    </button>
                     <div className="flex justify-between gap-2">
                         <div>
                             <p className="font-medium">Hello</p>
@@ -56,9 +72,10 @@ function HomeTemplate({ type }: HomeTemplateProps) {
                     </div>
                 </div >
 
+                {/* Body */}
                 {type === 'menu' && <BodyMenu data={items} />}
                 {type === 'table' && <BodyTable />}
-                {type === 'table-detail' && <BodyTableDetail data={items}/>}
+                {type === 'table-detail' && <BodyTableDetail data={items} />}
             </div>
         </div>
     );
