@@ -7,17 +7,20 @@ import openTable from "../api/table/openTable";
 import closeTable from "../api/table/closeTable";
 import getOrderById, { GetOrderRes } from "../api/order/getOrderById";
 import { GetAllItemRes } from "../api/item/getAllItem";
+import QRCode from 'qrcode.react';
 
 function BodyTableDetail({ data, data2 }: { data: GetAllTableRes[], data2: GetAllItemRes[] }) {
     const location = useLocation();
     const [tableData, setTableData] = useState<GetAllTableRes | null>(null); // Dữ liệu bảng được chọn
     const [listItem, setListItem] = useState<GetOrderRes[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [text, setText] = useState('');
 
     const open = async () => {
         if (tableData?.id) {
             const res = await openTable({ tableId: tableData.id }) as { stringCode: string };
             setTableData({ ...tableData, stringCode: res.stringCode, isActive: true });
+            setText(`${import.meta.env.VITE_APP_HOST}/table-detail?stringCode=${res.stringCode}&type=dt`);
         }
     }
 
@@ -68,6 +71,8 @@ function BodyTableDetail({ data, data2 }: { data: GetAllTableRes[], data2: GetAl
 
     return (
         <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-3">
+            {tableData?.isActive && <QRCode value={text} />}
+
             {tableData?.stringCode && <div className="my-3">Mã số bàn: {tableData?.stringCode}</div>}
 
             {listItem.map(i => (<div className="border-2 border-gray-300 w-full my-3 rounded-xl flex items-center">
