@@ -21,6 +21,8 @@ async function getOrder(req: Request, res: Response) {
                 }
             }
         });
+        
+        if (!t) return res.status(404).json({ message: 'Khong tim thay banguoi dung' });
 
         const list = await prisma.orderItem.findMany({
             where: {

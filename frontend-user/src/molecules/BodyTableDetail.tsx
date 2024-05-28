@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
 import getOrder, { GetOrderRes } from "../api/order/getOrder";
 import { GetAllItemRes } from "../api/item/getAllItem";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../routes";
 
 function BodyTableDetail({ data }: { data: GetAllItemRes[] }) {
     const hasJoinedTable = localStorage.getItem(`${import.meta.env.VITE_APP_API_URL}-table`);
+    const navigate = useNavigate();
     const [listItem, setListItem] = useState<GetOrderRes[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
 
     useEffect(() => {
         const fetchData = async () => {
-            // get hóa đơn
-            if (hasJoinedTable) {
-                const res = await getOrder({ stringCode: hasJoinedTable });
-                if (res) setListItem(res);
+            try {
+                // get hóa đơn
+                if (hasJoinedTable) {
+                    const res = await getOrder({ stringCode: hasJoinedTable });
+                    if (res) setListItem(res);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                navigate(routes.home);
+                localStorage.removeItem(`${import.meta.env.VITE_APP_API_URL}-table`)
             }
         };
 
